@@ -1,0 +1,9 @@
+click>=8.0
+rich>=13.0
+textual>=0.40
+pycryptodome>=3.19
+jsbeautifier>=1.14
+beautifulsoup4>=4.12
+lxml>=4.9
+requests>=2.31
+fake-useragent>=1.4

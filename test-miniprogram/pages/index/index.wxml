@@ -1,0 +1,39 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 欢迎卡片 -->
+  <view class="card">
+    <text class="title">欢迎使用 {{appName}}</text>
+    <text class="subtitle">这是一个测试小程序</text>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="card">
+    <text class="title">功能测试</text>
+    
+    <!-- 数据绑定测试 -->
+    <view class="info-row">
+      <text>计数器: {{count}}</text>
+    </view>
+    
+    <!-- 条件渲染测试 -->
+    <view wx:if="{{showMessage}}" class="message">
+      <text>这是条件渲染的内容</text>
+    </view>
+    <view wx:else class="message">
+      <text>点击按钮显示消息</text>
+    </view>
+    
+    <!-- 列表渲染测试 -->
+    <view class="list">
+      <view wx:for="{{items}}" wx:key="id" class="list-item">
+        <text>{{index + 1}}. {{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <button class="btn-primary" bindtap="onAddCount">增加计数</button>
+    <button class="btn-secondary" bindtap="onToggleMessage">切换消息</button>
+  </view>
+</view>

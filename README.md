@@ -1,40 +1,71 @@
 # wxapkg
 
-> **免责声明**：此工具仅限于学习和研究软件内含的设计思想和原理，用户承担因使用此工具而导致的所有法律和相关责任！作者不承担任何法律责任！
+微信小程序解包工具 (Python 版)
 
-## 📝 功能
+> **免责声明**：此工具仅限于学习和研究软件内含的设计思想和原理，用户承担因使用此工具而导致的所有法律和相关责任！
 
-- [x] 获取小程序信息（需要网络连接）
-- [x] 代码美化，默认开启，可以使用 `--disable-beautify` 参数禁用
-    - [x] 美化 `JSON` 文件
-    - [x] 美化 `JavaScript` 文件（会有点慢）
-    - [x] 美化 `Html` 文件，包括其中的 `<script>` 标签（会有点慢）
-- [ ] 解析并还原成小程序原始源码文件结构 [#6](https://github.com/wux1an/wxapkg/issues/6)
-- [ ] 自动导出文件中的敏感 url 和 key 等信息
+## 功能
 
-## 🎨 用法
+- ✅ 解密 PC 版微信的小程序 `.wxapkg` 文件
+- ✅ 解包提取小程序资源文件
+- ✅ 代码美化 (JSON/JavaScript/HTML)
+- ✅ 查询小程序元数据 (名称、开发者、描述等)
+- ✅ 终端交互界面 (TUI)
 
-![demo](demo.gif)
+## 安装
 
-一般用法如下，目前**只支持 windows 系统**：
-
-1. 用 PC 版微信打开小程序来让微信下载小程序  
-2. 使用 `wxapkg.exe scan` 命令来扫描所有小程序。需要**联网**获取小程序的名称、路径、wxid（用于后续解密）等信息  
-3. 使用键盘上下键选中想要处理的小程序，然后按回车来执行解密+解包  
-
-如果想手动来解密指定小程序，可以使用 `wxapkg.exe unpack` 命令，需要指定小程序 wxapkg 文件路径，同时指定小程序的 `wxid`。如果没指定 `wxid`，会自动从路径中使用正则表达式匹配获取
-
-## ⚒️ 安装
-
-下载最新的发布版本 [release](https://github.com/wux1an/wxapkg/releases/latest)，或者用下面的命令自己编译
-
-```
-go install github.com/wux1an/wxapkg@latest
+```bash
+pip install -r requirements.txt
 ```
 
-## 🔗 参考
+## 使用方法
 
-- 小程序解密: https://github.com/BlackTrace/pc_wxapkg_decrypt
-- 小程序解包: [https://gist.github.com/Integ/bcac5c21de5ea3...](https://gist.github.com/Integ/bcac5c21de5ea35b63b3db2c725f07ad)
-- 原理介绍: [https://misakikata.github.io/2021/03/%E5%BE%...](https://misakikata.github.io/2021/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%8C%85/)
-- 终端 ui 库: https://github.com/charmbracelet/bubbletea
+### 交互式扫描
+
+扫描本地小程序，选择后自动解包：
+
+```bash
+python -m wxapkg scan
+```
+
+### 手动解包
+
+指定小程序目录进行解包：
+
+```bash
+python -m wxapkg unpack -r "D:\WeChat Files\Applet\wx1234567890abcdef" -o output
+```
+
+### 参数说明
+
+| 参数                 | 说明           | 默认值                            |
+| -------------------- | -------------- | --------------------------------- |
+| `-r, --root`         | 小程序目录路径 | `~/Documents/WeChat Files/Applet` |
+| `-o, --output`       | 输出目录       | `unpack`                          |
+| `-n, --thread`       | 线程数         | `30`                              |
+| `--disable-beautify` | 禁用代码美化   | `False`                           |
+
+## 项目结构
+
+```
+wxapkg/
+├── __init__.py       # 包初始化
+├── __main__.py       # 入口点
+├── cli.py            # 命令行接口
+├── wxapkg.py         # 核心解密解包
+├── tui.py            # 终端界面
+├── utils/
+│   ├── beautify.py   # 代码美化
+│   └── query.py      # wxid 查询
+└── requirements.txt  # 依赖
+```
+
+## 解密原理
+
+1. **PBKDF2 密钥派生**: 使用 wxid 和固定 salt 生成 AES 密钥
+2. **AES-CBC 解密**: 解密前 1024 字节
+3. **XOR 异或**: 解密剩余数据
+
+## 免责声明
+
+此工具仅限于学习和研究软件内含的设计思想和原理，用户承担因使用此工具而导致的所有法律和相关责任！

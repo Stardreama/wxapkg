@@ -1,0 +1,43 @@
+/* pages/about/about.wxss */
+.about-card {
+  text-align: center;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.version {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 10rpx;
+}
+
+.feature-list {
+  margin-top: 20rpx;
+}
+
+.feature-item {
+  padding: 10rpx 0;
+  color: #4caf50;
+}
+
+.footer {
+  text-align: center;
+  padding: 40rpx;
+}
+
+.copyright {
+  font-size: 22rpx;
+  color: #999;
+}

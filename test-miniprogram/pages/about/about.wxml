@@ -1,0 +1,24 @@
+<!--pages/about/about.wxml-->
+<view class="container">
+  <view class="card about-card">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="title">关于我们</text>
+    <text class="version">版本: {{version}}</text>
+  </view>
+
+  <view class="card">
+    <text class="title">项目说明</text>
+    <text class="desc">这是一个用于测试 wxapkg 源码还原工具的小程序。</text>
+    <text class="desc">包含以下测试内容:</text>
+    
+    <view class="feature-list">
+      <view class="feature-item" wx:for="{{features}}" wx:key="*this">
+        <text>✓ {{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="copyright">© 2024 wxapkg Tool</text>
+  </view>
+</view>
